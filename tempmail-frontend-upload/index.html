@@ -45,6 +45,14 @@
       font-size: 0.9rem;
       color: #94a3b8;
     }
+    .mail {
+      margin-top: 16px;
+      padding: 12px;
+      background: #020617;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -54,6 +62,7 @@
     <input id="name" placeholder="mylogin123" />
     <div class="email" id="email"></div>
     <div class="status" id="status"></div>
+    <div class="mail" id="mail"></div>
   </div>
 
   <script>
@@ -61,25 +70,61 @@
     const input = document.getElementById("name");
     const emailBox = document.getElementById("email");
     const statusBox = document.getElementById("status");
+    const mailBox = document.getElementById("mail");
+
+    function setInbox(name) {
+      if (!name) return;
+      emailBox.textContent = `${name}@tabiland.app`;
+      statusBox.textContent = "Waiting for emails...";
+      mailBox.innerHTML = "";
+      localStorage.setItem("inbox", name);
+    }
 
     input.addEventListener("input", () => {
       const name = input.value.trim();
       if (!name) {
         emailBox.textContent = "";
+        statusBox.textContent = "";
+        mailBox.innerHTML = "";
         return;
       }
-      const email = `${name}@tabiland.app`;
-      emailBox.textContent = email;
-      statusBox.textContent = "Waiting for emails...";
-      localStorage.setItem("inbox", name);
+      setInbox(name);
     });
 
+    async function pollInbox() {
+      const inbox = localStorage.getItem("inbox");
+      if (!inbox) return;
+
+      try {
+        const res = await fetch(`${API}/inbox/${inbox}`);
+        const emails = await res.json();
+
+        if (!emails.length) {
+          statusBox.textContent = "Waiting for emails...";
+          return;
+        }
+
+        const mail = emails[0];
+        statusBox.textContent = "📬 Email received!";
+        mailBox.innerHTML = `
+          <b>From:</b> ${mail.from}<br>
+          <b>Subject:</b> ${mail.subject}<br><br>
+          ${mail.text || "(no text)"}
+        `;
+      } catch (e) {
+        statusBox.textContent = "Error loading inbox";
+      }
+    }
+
+    // Restore inbox on reload
     const saved = localStorage.getItem("inbox");
     if (saved) {
       input.value = saved;
-      emailBox.textContent = `${saved}@tabiland.app`;
-      statusBox.textContent = "Waiting for emails...";
+      setInbox(saved);
     }
+
+    // Poll every 3 seconds
+    setInterval(pollInbox, 3000);
   </script>
 </body>
 </html>
