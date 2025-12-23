@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont;
-      background: #0f172a; /* This makes the background dark blue */
+      background: #0f172a;
       color: #e5e7eb;
       display: flex;
       justify-content: center;
@@ -62,7 +62,7 @@
     <p>Choose your inbox name</p>
     <input id="name" placeholder="mylogin123" />
     <div class="email" id="email"></div>
-    <div class="status" id="status"></div>
+    <div class="status" id="status">Ready for messages...</div>
     <div class="mail" id="mail"></div>
   </div>
 
@@ -85,7 +85,7 @@
       const name = input.value.trim();
       if (!name) {
         emailBox.textContent = "";
-        statusBox.textContent = "";
+        statusBox.textContent = "Ready for messages..."; // Reset to default
         mailBox.innerHTML = "";
         return;
       }
@@ -97,12 +97,15 @@
       if (!inbox) return;
 
       try {
-        // ✅ The FIX: Cache busting with timestamp
+        // ✅ FIX: Added timestamp to prevent caching
         const res = await fetch(`${API}/inbox/${inbox}?timestamp=${Date.now()}`);
         const emails = await res.json();
 
+        // 🚨 DEBUG: Log the exact response to the Console
+        console.log("DEBUG: Emails received from server:", emails);
+
         if (!emails.length) {
-          statusBox.textContent = "Waiting for emails...";
+          statusBox.textContent = "Waiting for emails... (Server said: 0 emails)";
           return;
         }
 
@@ -116,7 +119,7 @@
         `;
       } catch (e) {
         console.error(e);
-        statusBox.textContent = "Error loading inbox";
+        statusBox.textContent = "Error loading inbox: " + e.message;
       }
     }
 
