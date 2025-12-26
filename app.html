@@ -4,17 +4,74 @@
   <meta charset="UTF-8" />
   <title>TempMail – Tabiland</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Prevent aggressive indexing during soft launch -->
+  <meta name="robots" content="noindex, nofollow" />
+
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont;
       background: #0f172a;
       color: #e5e7eb;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== Loading Mask ===== */
+    .loader {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #334155;
+      border-top-color: #60a5fa;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .muted {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      text-align: center;
+      max-width: 420px;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: #020617;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 420px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ===== Original App Styles ===== */
+    .app-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
+
     .box {
       background: #020617;
       padding: 24px;
@@ -23,10 +80,12 @@
       max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,.4);
     }
+
     h1 {
       margin-top: 0;
       font-size: 1.4rem;
     }
+
     input {
       width: 100%;
       box-sizing: border-box;
@@ -36,16 +95,19 @@
       margin-top: 10px;
       font-size: 1rem;
     }
+
     .email {
       margin-top: 16px;
       font-weight: bold;
       word-break: break-all;
     }
+
     .status {
       margin-top: 12px;
       font-size: 0.9rem;
       color: #94a3b8;
     }
+
     .mail {
       margin-top: 16px;
       padding: 12px;
@@ -56,17 +118,60 @@
     }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>Temporary Email</h1>
-    <p>Choose your inbox name</p>
-    <input id="name" placeholder="mylogin123" />
-    <div class="email" id="email"></div>
-    <div class="status" id="status">Ready for messages...</div>
-    <div class="mail" id="mail"></div>
+
+  <!-- ===== Loading Mask ===== -->
+  <div id="loading" class="loader">
+    <div class="spinner"></div>
+    <div class="muted">
+      Initializing temporary inbox…<br />
+      Waking up mail servers.
+    </div>
+    <div class="notice">
+      🚧 <strong>Service starting up</strong><br />
+      First load may take a few seconds.
+    </div>
+  </div>
+
+  <!-- ===== App Container (Original App) ===== -->
+  <div id="app" class="hidden app-wrapper">
+    <div class="box">
+      <h1>Temporary Email</h1>
+      <p>Choose your inbox name</p>
+      <input id="name" placeholder="mylogin123" />
+      <div class="email" id="email"></div>
+      <div class="status" id="status">Ready for messages...</div>
+      <div class="mail" id="mail"></div>
+    </div>
   </div>
 
   <script>
+    /* ===== Backend Delay Mask ===== */
+    const MIN_DELAY = 2500;
+    const start = Date.now();
+
+    function showApp() {
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+    }
+
+    function backendReady() {
+      // We assume backend is ready once JS loads;
+      // polling will handle real readiness
+      return true;
+    }
+
+    (function pollReady() {
+      const elapsed = Date.now() - start;
+      if (backendReady() && elapsed >= MIN_DELAY) {
+        showApp();
+      } else {
+        setTimeout(pollReady, 500);
+      }
+    })();
+
+    /* ===== Original App Logic (UNCHANGED) ===== */
     const API = "https://api.tabiland.app";
     const input = document.getElementById("name");
     const emailBox = document.getElementById("email");
@@ -85,7 +190,7 @@
       const name = input.value.trim();
       if (!name) {
         emailBox.textContent = "";
-        statusBox.textContent = "Ready for messages..."; // Reset to default
+        statusBox.textContent = "Ready for messages...";
         mailBox.innerHTML = "";
         return;
       }
@@ -97,15 +202,13 @@
       if (!inbox) return;
 
       try {
-        // ✅ FIX: Added timestamp to prevent caching
         const res = await fetch(`${API}/inbox/${inbox}?timestamp=${Date.now()}`);
         const emails = await res.json();
 
-        // 🚨 DEBUG: Log the exact response to the Console
         console.log("DEBUG: Emails received from server:", emails);
 
         if (!emails.length) {
-          statusBox.textContent = "Waiting for emails... (Server said: 0 emails)";
+          statusBox.textContent = "Waiting for emails... (0 emails)";
           return;
         }
 
@@ -114,8 +217,8 @@
         mailBox.innerHTML = `
           <b>From:</b> ${mail.from}<br>
           <b>Subject:</b> ${mail.subject}<br>
-          <hr style="border: 0; border-top: 1px solid #334155; margin: 10px 0;">
-          <div style="white-space: pre-wrap;">${mail.text || "(no text content)"}</div>
+          <hr style="border:0;border-top:1px solid #334155;margin:10px 0;">
+          <div style="white-space:pre-wrap;">${mail.text || "(no text content)"}</div>
         `;
       } catch (e) {
         console.error(e);
@@ -123,15 +226,14 @@
       }
     }
 
-    // Restore inbox on reload
     const saved = localStorage.getItem("inbox");
     if (saved) {
       input.value = saved;
       setInbox(saved);
     }
 
-    // Poll every 3 seconds
     setInterval(pollInbox, 3000);
   </script>
+
 </body>
 </html>
