@@ -5,8 +5,9 @@
   <title>Temporary Inbox – TempMailFree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Keep app hidden from search until stable -->
-  <meta name="robots" content="noindex, nofollow" />
+  <!-- STEP 3: Allow indexing -->
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://tempmailfree.site/app.html">
 
   <style>
     body {
@@ -133,7 +134,7 @@
       </div>
     </div>
 
-    <!-- ===== Product Explanation (STEP 2) ===== -->
+    <!-- ===== Product Explanation ===== -->
     <section style="max-width:720px;margin:60px auto;padding:0 20px;line-height:1.7;color:#cbd5f5;">
 
       <h2 style="color:#e5e7eb;">How this temporary inbox works</h2>
@@ -180,7 +181,7 @@
     }
 
     function backendReady() {
-      return true; // future: replace with real health check
+      return true;
     }
 
     (function poll() {
