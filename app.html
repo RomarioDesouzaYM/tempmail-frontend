@@ -17,6 +17,20 @@
       margin: 0;
     }
 
+    nav {
+      padding: 16px 20px;
+    }
+
+    nav a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     /* ===== Loader ===== */
     .loader {
       min-height: 100vh;
@@ -59,7 +73,7 @@
       width: 100%;
       max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,.4);
-      margin: 60px auto;
+      margin: 40px auto;
     }
 
     h1 {
@@ -107,6 +121,11 @@
 </head>
 
 <body>
+
+  <!-- ===== Simple Navigation (Fix: no dead-end) ===== -->
+  <nav>
+    <a href="/">← Back to Home</a>
+  </nav>
 
   <!-- ===== Loading Mask ===== -->
   <div id="loading" class="loader">
