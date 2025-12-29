@@ -13,44 +13,58 @@
 
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --success: #10b981;
       --text-main: #0f172a;
       --text-muted: #64748b;
       --border: #e2e8f0;
-      --card-bg: #ffffff;
-      --input-bg: #f8fafc;
+      --bg-alt: #f8fafc;
     }
 
     * { box-sizing: border-box; transition: all 0.2s ease; }
 
     body {
       margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background-color: #ffffff;
-      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-      background-size: 24px 24px; /* Subtle professional grid */
       color: var(--text-main);
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    /* ===== BACKGROUND DECORATIONS ===== */
+    .bg-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.15;
+    }
+    .glow-1 { top: 10%; left: -100px; background: var(--primary); }
+    .glow-2 { top: 30%; right: -100px; background: var(--secondary); }
 
     /* ===== HERO ===== */
     .hero {
-      padding: 80px 20px 120px;
+      padding: 100px 20px 120px;
       text-align: center;
-      background: #ffffff;
+      background: linear-gradient(180deg, #f5f7ff 0%, #ffffff 100%);
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-size: clamp(2.5rem, 6vw, 3.8rem);
       font-weight: 800;
-      color: var(--text-main);
-      margin: 0 0 12px;
-      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--text-muted);
       max-width: 600px;
       margin: 0 auto;
@@ -59,29 +73,27 @@
     /* ===== APP CARD ===== */
     .app-wrapper {
       max-width: 860px;
-      margin: -70px auto 0;
+      margin: -80px auto 0;
       padding: 0 20px;
+      position: relative;
     }
 
     .app-card {
-      background: var(--card-bg);
-      border-radius: 24px;
+      background: #ffffff;
+      border-radius: 28px;
       padding: 40px;
       border: 1px solid var(--border);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.06);
     }
 
-    .section {
-      margin-bottom: 24px;
-    }
+    .section { margin-bottom: 24px; }
 
-    /* ===== INPUT ===== */
     input {
       width: 100%;
-      padding: 16px 20px;
-      border-radius: 14px;
+      padding: 18px 24px;
+      border-radius: 16px;
       border: 2px solid var(--border);
-      background: var(--input-bg);
+      background: #ffffff;
       font-size: 1.1rem;
       outline: none;
       font-family: inherit;
@@ -89,56 +101,49 @@
 
     input:focus {
       border-color: var(--primary);
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
     }
 
-    /* ===== EMAIL BAR ===== */
     .email-bar {
-      background: #f1f5f9;
-      border-radius: 16px;
-      padding: 24px;
+      background: #f0f4ff;
+      border-radius: 20px;
+      padding: 32px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      border: 1px dashed #cbd5e1;
+      gap: 20px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
     }
 
     .email-text {
-      font-weight: 700;
-      font-size: 1.5rem;
+      font-weight: 800;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
       color: var(--primary);
       word-break: break-all;
       text-align: center;
     }
 
-    .actions {
-      display: flex;
-      gap: 12px;
-    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 
     .actions button {
       background: #ffffff;
       border: 1px solid var(--border);
-      padding: 8px 16px;
-      border-radius: 10px;
+      padding: 10px 22px;
+      border-radius: 12px;
       color: var(--text-main);
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: capitalize;
+      font-weight: 700;
+      font-size: 0.9rem;
     }
 
     .actions button:hover {
       border-color: var(--primary);
       color: var(--primary);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
-    /* ===== MESSAGES ===== */
     .messages {
-      background: white;
+      background: #ffffff;
       border-radius: 20px;
       padding: 24px;
       min-height: 180px;
@@ -149,79 +154,133 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 16px;
-      color: var(--text-main);
+      font-weight: 800;
+      margin-bottom: 20px;
     }
 
     .messages-header button {
-      background: transparent;
+      background: var(--primary);
       border: none;
+      border-radius: 10px;
+      padding: 8px 18px;
       cursor: pointer;
-      color: var(--primary);
+      color: white;
       font-weight: 700;
-      font-size: 0.9rem;
-      text-transform: capitalize;
-    }
-
-    .messages-header button:hover {
-      text-decoration: underline;
     }
 
     .status {
       color: var(--text-muted);
       font-size: 0.95rem;
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .mail {
       font-size: 0.95rem;
       white-space: pre-wrap;
       color: #334155;
-      background: #f8fafc;
-      padding: 16px;
-      border-radius: 12px;
-      border-left: 4px solid var(--primary);
+      background: var(--bg-alt);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
     }
 
-    /* ===== CONTENT (SEO) ===== */
+    /* ===== CONTENT (SEO) WITH ICONS ===== */
+    .content-wrapper {
+      background: var(--bg-alt);
+      margin-top: 100px;
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
     section.content {
       max-width: 860px;
-      margin: 80px auto;
+      margin: 0 auto;
       padding: 0 24px;
       color: #475569;
     }
 
     section.content h2 {
-      margin-top: 48px;
       color: var(--text-main);
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    section.content h2 svg {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* ===== ACCORDION FAQ ===== */
+    .faq-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 20px 24px;
+      list-style: none;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-main);
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--primary);
+      font-weight: 400;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+      transform: rotate(180deg);
+    }
+
+    .faq-content {
+      padding: 0 24px 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
     }
 
     footer {
       text-align: center;
       font-size: 0.9rem;
       color: var(--text-muted);
-      margin: 80px 0 40px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
+      padding: 60px 20px;
+      background: var(--bg-alt);
     }
 
     @media (max-width: 600px) {
       .app-card { padding: 24px; }
-      .email-text { font-size: 1.2rem; }
-      .hero h1 { font-size: 2rem; }
+      .actions button { width: 100%; }
+      section.content h2 { font-size: 1.4rem; }
     }
   </style>
 </head>
 
 <body>
+
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
 
 <div class="hero">
   <h1>Free Temporary Email</h1>
@@ -257,26 +316,72 @@
   </div>
 </div>
 
-<section class="content">
-  <h2>How this temporary inbox works</h2>
-  <p>
-    TempMailFree provides a disposable email inbox that allows you to receive emails
-    without using your personal email address. You choose an inbox name, and incoming
-    emails appear automatically on this page.
-  </p>
+<div class="content-wrapper">
+  <section class="content">
+    <h2>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v.5Z"/><path d="m22 10-8.53 4.47a2 2 0 0 1-1.94 0L3 10"/></svg>
+      How this temporary inbox works
+    </h2>
+    <p>
+      TempMailFree provides a disposable email inbox that allows you to receive emails
+      without using your personal email address. You choose an inbox name, and incoming
+      emails appear automatically on this page.
+    </p>
 
-  <h2>Privacy & email retention</h2>
-  <p>
-    No registration, no passwords, no personal data required.
-    Emails are stored temporarily and may be deleted automatically.
-  </p>
+    <h2>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Privacy & email retention
+    </h2>
+    <p>
+      No registration, no passwords, no personal data required.
+      Emails are stored temporarily and may be deleted automatically.
+    </p>
 
-  <h2>What emails are supported</h2>
-  <p>
-    Temporary inboxes support verification and standard text-based emails.
-    Intended for short-term usage such as sign-ups and testing.
-  </p>
-</section>
+    <h2>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      What emails are supported
+    </h2>
+    <p>
+      Temporary inboxes support verification and standard text-based emails.
+      Intended for short-term usage such as sign-ups and testing.
+    </p>
+
+    <h2>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      Frequently Asked Questions
+    </h2>
+    
+    <div class="faq-container">
+      <details class="faq-item">
+        <summary>Is this disposable email service free?</summary>
+        <div class="faq-content">
+          Yes, TempMailFree is 100% free to use. You can generate as many temporary addresses as you need without any hidden costs.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How long do the emails stay in my inbox?</summary>
+        <div class="faq-content">
+          Emails are stored temporarily on our servers. To ensure privacy and security, messages are automatically purged after a set period of inactivity.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I send emails from this temporary address?</summary>
+        <div class="faq-content">
+          Currently, our service is designed for receiving emails only. This protects our system from being used for spam while allowing you to receive verification codes and sign-up links.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I need to install any app or extension?</summary>
+        <div class="faq-content">
+          No installation is required. TempMailFree works directly in your web browser on both mobile and desktop devices.
+        </div>
+      </details>
+    </div>
+  </section>
+</div>
 
 <footer>
   © 2025 TempMailFree.site — Free disposable email service
@@ -313,7 +418,11 @@
     navigator.clipboard.writeText(emailBox.textContent);
     const oldStatus = statusBox.textContent;
     statusBox.textContent = "Email copied to clipboard ✔";
-    setTimeout(() => { statusBox.textContent = oldStatus; }, 2000);
+    statusBox.style.color = "var(--primary)";
+    setTimeout(() => { 
+      statusBox.textContent = oldStatus; 
+      statusBox.style.color = "var(--text-muted)";
+    }, 2000);
   }
 
   input.addEventListener("input", () => {
@@ -332,7 +441,7 @@
       const emails = await res.json();
 
       if (!emails || !emails.length) {
-        statusBox.textContent = "Waiting for emails…";
+        if(!statusBox.textContent.includes("copied")) statusBox.textContent = "Waiting for emails…";
         mailBox.style.display = "none";
         return;
       }
@@ -340,8 +449,7 @@
       const mail = emails[0];
       statusBox.textContent = "📬 Email received";
       mailBox.style.display = "block";
-      mailBox.textContent =
-        `From: ${mail.from}\nSubject: ${mail.subject}\n\n${mail.text || ""}`;
+      mailBox.textContent = `From: ${mail.from}\nSubject: ${mail.subject}\n\n${mail.text || ""}`;
     } catch {
       statusBox.textContent = "Reconnecting…";
     }
