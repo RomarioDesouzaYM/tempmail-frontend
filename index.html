@@ -31,23 +31,23 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      /* SIDE ACCENTS: Subtle tints on the edges to complement the white center */
-      background-image: linear-gradient(90deg, #f0f4ff 0%, #ffffff 10% , #ffffff 90%, #f0f4ff 100%);
+      /* SIDE ACCENTS: Subtle tints to complement white center */
+      background-image: linear-gradient(90deg, #f0f4ff 0%, #ffffff 10%, #ffffff 90%, #f0f4ff 100%);
     }
 
     /* ===== HERO WITH PURPLE GRADIENT HEAD ===== */
     .hero {
-      padding: 100px 20px 140px;
+      padding: 80px 20px 120px;
       text-align: center;
       background: linear-gradient(180deg, #eef2ff 0%, #f5f3ff 50%, #ffffff 100%);
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(2.5rem, 6vw, 3.8rem);
       font-weight: 800;
       margin: 0 0 16px;
       letter-spacing: -0.04em;
-      color: #7c3aed; /* Deep purple for the title */
+      color: #5b21b6; /* Deep Purple */
     }
 
     .hero p {
@@ -105,7 +105,7 @@
     .email-text {
       font-weight: 800;
       font-size: clamp(1.2rem, 4vw, 1.8rem);
-      color: #6366f1;
+      color: var(--primary);
       word-break: break-all;
       text-align: center;
     }
@@ -129,7 +129,7 @@
       transform: translateY(-2px);
     }
 
-    /* ===== PARSER & MESSAGES UI ===== */
+    /* ===== MESSAGES / EMAIL PARSER CSS ===== */
     .messages {
       background: #ffffff;
       border-radius: 20px;
@@ -160,44 +160,49 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       margin-bottom: 12px;
-      display: block;
+      font-weight: 500;
     }
 
-    /* Fixed Parser Containers */
-    #mail {
+    /* The Fix for Parser Overflow */
+    #mail-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .email-item {
+    .email-card {
       background: var(--bg-alt);
-      padding: 24px;
-      border-radius: 16px;
       border: 1px solid var(--border);
-      border-left: 5px solid var(--primary);
+      border-radius: 16px;
+      padding: 20px;
+      animation: slideIn 0.3s ease-out;
     }
 
-    .email-meta {
+    .email-header-info {
       font-size: 0.85rem;
       color: var(--text-muted);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
       margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .email-meta strong { color: var(--text-main); }
+    .email-header-info strong { color: var(--text-main); }
 
     .email-body {
       font-size: 0.95rem;
       white-space: pre-wrap;
       color: #334155;
-      /* FIX: This prevents long URLs from overflowing the card */
-      word-break: break-word; 
-      overflow-wrap: anywhere;
+      /* CRITICAL FIX: Forces long URLs/Text to wrap instead of breaking layout */
+      overflow-wrap: anywhere; 
+      word-break: break-word;
     }
 
-    /* ===== CONTENT / FAQ ===== */
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== CONTENT SECTIONS ===== */
     .content-wrapper {
       background: var(--bg-alt);
       margin-top: 100px;
@@ -267,7 +272,7 @@
       </div>
 
       <div id="status" class="status">Waiting for emails…</div>
-      <div id="mail"></div>
+      <div id="mail-list"></div>
     </div>
 
   </div>
@@ -292,13 +297,12 @@
   const input = document.getElementById("name");
   const emailBox = document.getElementById("email");
   const statusBox = document.getElementById("status");
-  const mailBox = document.getElementById("mail");
+  const mailList = document.getElementById("mail-list");
 
   function setInbox(name) {
     emailBox.textContent = `${name}@tabiland.app`;
     statusBox.textContent = "Waiting for emails…";
-    mailBox.style.display = "none";
-    mailBox.innerHTML = "";
+    mailList.innerHTML = ""; // Clear existing mails
     localStorage.setItem("inbox", name);
   }
 
@@ -332,7 +336,7 @@
     setInbox(name);
   });
 
-  // FIXED PARSER: Loops through all emails and handles long URL wrapping
+  // FIXED PARSER: Handles multiple emails and wraps long text/links
   async function pollInbox() {
     const inbox = localStorage.getItem("inbox");
     if (!inbox) return;
@@ -343,25 +347,25 @@
 
       if (!emails || !emails.length) {
         if(!statusBox.textContent.includes("copied")) statusBox.textContent = "Waiting for emails…";
-        mailBox.style.display = "none";
+        mailList.innerHTML = "";
         return;
       }
 
-      statusBox.textContent = "📬 Email received";
-      mailBox.style.display = "flex";
+      statusBox.textContent = `📬 ${emails.length} Email(s) received`;
       
-      // Map through all emails to create structured cards
-      mailBox.innerHTML = emails.map(mail => `
-        <div class="email-item">
-          <div class="email-meta">
+      // Clear and Re-render all emails as cards
+      mailList.innerHTML = emails.map(mail => `
+        <div class="email-card">
+          <div class="email-header-info">
             <strong>From:</strong> ${mail.from}<br>
             <strong>Subject:</strong> ${mail.subject}
           </div>
           <div class="email-body">${mail.text || ""}</div>
         </div>
       `).join('');
-      
-    } catch {
+
+    } catch (error) {
+      console.error("Poll Error:", error);
       statusBox.textContent = "Reconnecting…";
     }
   }
