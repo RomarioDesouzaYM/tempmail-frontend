@@ -2,71 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FL1066MQ61"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FL1066MQ61');
-  </script>
-
-  <title>Free Temporary Email – Disposable Inbox | TempMailFree</title>
-  <meta name="description" content="Get a free temporary email address to receive emails instantly. No signup, no registration." />
+  <title>Free Temporary Email – TempMailFree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://tempmailfree.site/" />
   <link rel="icon" href="/favicon.ico">
 
   <style>
+    :root {
+      --navy: #0b132b;
+      --blue: #2563eb;
+      --purple: #6366f1;
+      --gray: #6b7280;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #ffffff;
-      color: #111827;
+      background: #f8fafc;
+      color: #0f172a;
     }
 
-    /* ===== Header ===== */
-    header {
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      padding: 80px 20px 140px;
       text-align: center;
-      padding: 64px 24px 32px;
+      color: white;
     }
 
-    h1 {
-      font-size: 2.6rem;
+    .hero h1 {
+      font-size: 2.8rem;
       margin-bottom: 12px;
     }
 
-    header p {
+    .hero p {
       font-size: 1.1rem;
-      color: #6b7280;
+      opacity: 0.95;
     }
 
-    /* ===== App Card ===== */
+    /* ===== APP CARD ===== */
     .app-wrapper {
-      max-width: 760px;
-      margin: 0 auto;
+      max-width: 860px;
+      margin: -90px auto 0;
       padding: 0 20px;
     }
 
     .app-card {
-      background: #0f172a;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 30px 60px rgba(0,0,0,.15);
+      background: var(--navy);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.25);
     }
 
-    /* ===== Email Bar ===== */
-    .email-bar {
-      background: #ffffff;
+    .section {
+      margin-bottom: 18px;
+    }
+
+    /* ===== INPUT ===== */
+    input {
+      width: 100%;
+      padding: 14px 16px;
       border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    /* ===== EMAIL BAR ===== */
+    .email-bar {
+      background: white;
+      border-radius: 14px;
       padding: 16px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
     }
 
     .email-text {
@@ -74,36 +86,30 @@
       word-break: break-all;
     }
 
-    .email-actions {
+    .actions {
       display: flex;
       gap: 14px;
-      font-size: 0.9rem;
-      color: #6b7280;
+      font-size: 0.85rem;
     }
 
-    .email-actions span {
-      cursor: default;
-    }
-
-    /* ===== Input ===== */
-    .input-row {
-      margin-bottom: 16px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
+    .actions button {
+      background: transparent;
       border: none;
-      font-size: 1rem;
+      color: var(--gray);
+      cursor: pointer;
+      font-weight: 500;
     }
 
-    /* ===== Messages ===== */
+    .actions button:hover {
+      color: var(--blue);
+    }
+
+    /* ===== MESSAGES ===== */
     .messages {
-      background: #ffffff;
-      border-radius: 14px;
+      background: white;
+      border-radius: 16px;
       padding: 18px;
-      min-height: 140px;
+      min-height: 160px;
       border: 1px solid #e5e7eb;
     }
 
@@ -112,45 +118,29 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+    }
+
+    .messages-header button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--blue);
+      font-weight: 500;
     }
 
     .status {
+      color: var(--gray);
       font-size: 0.9rem;
-      color: #6b7280;
       margin-bottom: 8px;
     }
 
     .mail {
       font-size: 0.9rem;
-      color: #111827;
       white-space: pre-wrap;
     }
 
-    /* ===== Loader ===== */
-    .loader {
-      text-align: center;
-      padding: 40px;
-      color: #6b7280;
-    }
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #e5e7eb;
-      border-top-color: #2563eb;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 12px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .hidden { display: none; }
-
-    /* ===== Content ===== */
+    /* ===== CONTENT ===== */
     section.content {
       max-width: 900px;
       margin: 80px auto;
@@ -160,8 +150,8 @@
     }
 
     section.content h2 {
-      color: #111827;
-      margin-top: 40px;
+      margin-top: 36px;
+      color: #0f172a;
     }
 
     footer {
@@ -175,51 +165,41 @@
 
 <body>
 
-<header>
+<div class="hero">
   <h1>Free Temporary Email</h1>
   <p>TempMailFree protects your privacy and keeps your inbox spam-free</p>
-</header>
+</div>
 
 <div class="app-wrapper">
+  <div class="app-card">
 
-  <div id="loading" class="loader">
-    <div class="spinner"></div>
-    Initializing temporary inbox…
-  </div>
-
-  <div id="app" class="hidden">
-    <div class="app-card">
-
-      <div class="input-row">
-        <input id="name" placeholder="Choose inbox name (e.g. mylogin123)" />
-      </div>
-
-      <div class="email-bar">
-        <div id="email" class="email-text"></div>
-        <div class="email-actions">
-          <span>copy</span>
-          <span>random</span>
-          <span>change</span>
-        </div>
-      </div>
-
-      <div class="messages">
-        <div class="messages-header">
-          <span>Messages</span>
-          <span>refresh</span>
-        </div>
-
-        <div id="status" class="status">Ready for messages…</div>
-        <div id="mail" class="mail"></div>
-      </div>
-
+    <div class="section">
+      <input id="name" placeholder="Choose inbox name (e.g. mylogin123)" />
     </div>
-  </div>
 
+    <div class="section email-bar">
+      <div id="email" class="email-text"></div>
+      <div class="actions">
+        <button onclick="copyEmail()">copy</button>
+        <button onclick="randomInbox()">random</button>
+        <button onclick="changeInbox()">change</button>
+      </div>
+    </div>
+
+    <div class="section messages">
+      <div class="messages-header">
+        <span>Messages</span>
+        <button onclick="pollInbox()">refresh</button>
+      </div>
+
+      <div id="status" class="status">Waiting for emails…</div>
+      <div id="mail" class="mail"></div>
+    </div>
+
+  </div>
 </div>
 
 <section class="content">
-
   <h2>How this temporary inbox works</h2>
   <p>
     TempMailFree provides a disposable email inbox that allows you to receive emails
@@ -229,16 +209,15 @@
 
   <h2>Privacy & email retention</h2>
   <p>
-    No registration, no passwords, no personal information required.
-    Emails are stored only temporarily and may be automatically deleted.
+    No registration, no passwords, no personal data required.
+    Emails are stored temporarily and may be deleted automatically.
   </p>
 
   <h2>What emails are supported</h2>
   <p>
-    Temporary inboxes support standard verification and text-based emails.
-    This service is intended for short-term use such as sign-ups and testing.
+    Temporary inboxes support verification and standard text-based emails.
+    Intended for short-term usage such as sign-ups and testing.
   </p>
-
 </section>
 
 <footer>
@@ -246,19 +225,6 @@
 </footer>
 
 <script>
-  const MIN_DELAY = 2000;
-  const start = Date.now();
-
-  function showApp() {
-    document.getElementById("loading").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
-  }
-
-  (function poll() {
-    if (Date.now() - start >= MIN_DELAY) showApp();
-    else setTimeout(poll, 500);
-  })();
-
   const API = "https://api.tabiland.app";
   const input = document.getElementById("name");
   const emailBox = document.getElementById("email");
@@ -270,6 +236,23 @@
     statusBox.textContent = "Waiting for emails…";
     mailBox.textContent = "";
     localStorage.setItem("inbox", name);
+  }
+
+  function randomInbox() {
+    const rand = Math.random().toString(36).substring(2, 10);
+    input.value = rand;
+    setInbox(rand);
+  }
+
+  function changeInbox() {
+    input.focus();
+    input.select();
+  }
+
+  function copyEmail() {
+    if (!emailBox.textContent) return;
+    navigator.clipboard.writeText(emailBox.textContent);
+    statusBox.textContent = "Email copied to clipboard ✔";
   }
 
   input.addEventListener("input", () => {
@@ -293,7 +276,7 @@
 
       const mail = emails[0];
       statusBox.textContent = "📬 Email received";
-      mailBox.innerHTML =
+      mailBox.textContent =
         `From: ${mail.from}\nSubject: ${mail.subject}\n\n${mail.text || ""}`;
     } catch {
       statusBox.textContent = "Reconnecting…";
