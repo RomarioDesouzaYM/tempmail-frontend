@@ -4,298 +4,282 @@
   <meta charset="UTF-8" />
   <title>Free Temporary Email – TempMailFree</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://tempmailfree.site/" />
+  <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --glass-border: rgba(255, 255, 255, 0.1);
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --input-bg: #f8fafc;
     }
 
     * { box-sizing: border-box; transition: all 0.2s ease; }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #ffffff;
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 24px 24px; /* Subtle professional grid */
       color: var(--text-main);
-      min-height: 100vh;
       line-height: 1.6;
     }
 
-    /* ===== HERO SECTION ===== */
+    /* ===== HERO ===== */
     .hero {
-      padding: 100px 20px 60px;
+      padding: 80px 20px 120px;
       text-align: center;
+      background: #ffffff;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
       font-weight: 800;
-      letter-spacing: -0.025em;
-      background: linear-gradient(to right, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0;
+      color: var(--text-main);
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--text-muted);
       max-width: 600px;
-      margin: 16px auto 0;
-    }
-
-    /* ===== MAIN APP CARD ===== */
-    .app-wrapper {
-      max-width: 800px;
       margin: 0 auto;
-      padding: 0 20px 80px;
     }
 
-    .glass-card {
+    /* ===== APP CARD ===== */
+    .app-wrapper {
+      max-width: 860px;
+      margin: -70px auto 0;
+      padding: 0 20px;
+    }
+
+    .app-card {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
       border-radius: 24px;
       padding: 40px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
     }
 
-    /* ===== INPUTS & ACTIONS ===== */
-    .input-group {
+    .section {
       margin-bottom: 24px;
     }
 
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
+    /* ===== INPUT ===== */
     input {
       width: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--glass-border);
       padding: 16px 20px;
-      border-radius: 12px;
-      color: white;
+      border-radius: 14px;
+      border: 2px solid var(--border);
+      background: var(--input-bg);
       font-size: 1.1rem;
       outline: none;
+      font-family: inherit;
     }
 
     input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
     }
 
-    .email-display-container {
-      background: rgba(255, 255, 255, 0.05);
+    /* ===== EMAIL BAR ===== */
+    .email-bar {
+      background: #f1f5f9;
       border-radius: 16px;
-      padding: 20px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 16px;
-      margin-bottom: 32px;
-      border: 1px dashed var(--glass-border);
+      border: 1px dashed #cbd5e1;
     }
 
-    .email-address {
-      font-size: 1.4rem;
+    .email-text {
       font-weight: 700;
-      color: #fff;
+      font-size: 1.5rem;
+      color: var(--primary);
       word-break: break-all;
       text-align: center;
     }
 
-    .button-row {
+    .actions {
       display: flex;
-      gap: 10px;
-      justify-content: center;
+      gap: 12px;
     }
 
-    .btn {
-      padding: 10px 20px;
+    .actions button {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
       border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      color: var(--text-main);
       cursor: pointer;
-      border: 1px solid transparent;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: capitalize;
+    }
+
+    .actions button:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* ===== MESSAGES ===== */
+    .messages {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      min-height: 180px;
+      border: 1px solid var(--border);
+    }
+
+    .messages-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    .messages-header button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: capitalize;
+    }
+
+    .messages-header button:hover {
+      text-decoration: underline;
+    }
+
+    .status {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    
-    .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
-    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-
-    /* ===== INBOX SECTION ===== */
-    .inbox-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    .inbox-title { font-size: 1.25rem; font-weight: 700; }
-
-    .refresh-btn {
-      color: var(--primary);
-      background: none;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
+    .mail {
       font-size: 0.95rem;
+      white-space: pre-wrap;
+      color: #334155;
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
     }
 
-    .refresh-btn:hover { text-decoration: underline; }
-
-    #mail-container {
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* ===== CONTENT (SEO) ===== */
+    section.content {
+      max-width: 860px;
+      margin: 80px auto;
+      padding: 0 24px;
+      color: #475569;
     }
 
-    .empty-state {
-      text-align: center;
-      color: var(--text-muted);
-      padding: 40px 0;
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.3);
+    section.content h2 {
+      margin-top: 48px;
+      color: var(--text-main);
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
-
-    .email-card {
-      background: white;
-      color: #1e293b;
-      padding: 20px;
-      border-radius: 16px;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== TOAST NOTIFICATION ===== */
-    #toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #10b981;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-      display: none;
-      z-index: 1000;
-    }
-
-    /* ===== FOOTER CONTENT ===== */
-    .info-section {
-      max-width: 800px;
-      margin: 60px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      padding: 0 20px;
-    }
-
-    .info-card h3 { color: #818cf8; margin-bottom: 12px; }
-    .info-card p { font-size: 0.95rem; color: var(--text-muted); }
 
     footer {
       text-align: center;
-      padding: 40px;
-      border-top: 1px solid var(--glass-border);
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
+      margin: 80px 0 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
     }
 
     @media (max-width: 600px) {
-      .button-row { flex-direction: column; }
-      .glass-card { padding: 24px; }
+      .app-card { padding: 24px; }
+      .email-text { font-size: 1.2rem; }
+      .hero h1 { font-size: 2rem; }
     }
   </style>
 </head>
+
 <body>
 
-<div id="toast">Copied to clipboard!</div>
-
 <div class="hero">
-  <h1>TempMailFree</h1>
-  <p>Protect your identity with instant disposable email addresses. No logs, no spam, total privacy.</p>
+  <h1>Free Temporary Email</h1>
+  <p>TempMailFree protects your privacy and keeps your inbox spam-free</p>
 </div>
 
 <div class="app-wrapper">
-  <div class="glass-card">
-    
-    <div class="input-group">
-      <label for="name">Custom Inbox Name</label>
-      <input id="name" type="text" placeholder="Enter name (e.g. john-doe)" autocomplete="off" />
+  <div class="app-card">
+
+    <div class="section">
+      <input id="name" placeholder="Choose inbox name (e.g. mylogin123)" autocomplete="off" />
     </div>
 
-    <div class="email-display-container">
-      <div id="email" class="email-address">...</div>
-      <div class="button-row">
-        <button class="btn btn-primary" onclick="copyEmail()">Copy Address</button>
-        <button class="btn btn-secondary" onclick="randomInbox()">Randomize</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('name').focus()">Change</button>
+    <div class="section email-bar">
+      <div id="email" class="email-text"></div>
+      <div class="actions">
+        <button onclick="copyEmail()">copy</button>
+        <button onclick="randomInbox()">random</button>
+        <button onclick="changeInbox()">change</button>
       </div>
     </div>
 
-    <div class="inbox-section">
-      <div class="inbox-header">
-        <span class="inbox-title">Inbox</span>
-        <button class="refresh-btn" onclick="pollInbox()">Refresh now</button>
+    <div class="section messages">
+      <div class="messages-header">
+        <span>Messages</span>
+        <button onclick="pollInbox()">refresh</button>
       </div>
-      
-      <div id="mail-container">
-        <div id="status" class="empty-state">Waiting for incoming messages...</div>
-      </div>
+
+      <div id="status" class="status">Waiting for emails…</div>
+      <div id="mail" class="mail"></div>
     </div>
 
   </div>
 </div>
 
-<div class="info-section">
-  <div class="info-card">
-    <h3>Privacy First</h3>
-    <p>We don't track your IP or require any registration. Your activity remains completely anonymous.</p>
-  </div>
-  <div class="info-card">
-    <h3>Instant Receipt</h3>
-    <p>Our infrastructure delivers verification codes and links in real-time, usually under 3 seconds.</p>
-  </div>
-  <div class="info-card">
-    <h3>Auto-Delete</h3>
-    <p>Emails are stored on a temporary basis and automatically purged to ensure your data doesn't linger.</p>
-  </div>
-</div>
+<section class="content">
+  <h2>How this temporary inbox works</h2>
+  <p>
+    TempMailFree provides a disposable email inbox that allows you to receive emails
+    without using your personal email address. You choose an inbox name, and incoming
+    emails appear automatically on this page.
+  </p>
+
+  <h2>Privacy & email retention</h2>
+  <p>
+    No registration, no passwords, no personal data required.
+    Emails are stored temporarily and may be deleted automatically.
+  </p>
+
+  <h2>What emails are supported</h2>
+  <p>
+    Temporary inboxes support verification and standard text-based emails.
+    Intended for short-term usage such as sign-ups and testing.
+  </p>
+</section>
 
 <footer>
-  © 2025 TempMailFree.site — Secure Disposable Email Service
+  © 2025 TempMailFree.site — Free disposable email service
 </footer>
 
 <script>
@@ -303,20 +287,14 @@
   const input = document.getElementById("name");
   const emailBox = document.getElementById("email");
   const statusBox = document.getElementById("status");
-  const mailContainer = document.getElementById("mail-container");
-  const toast = document.getElementById("toast");
-
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.style.display = "block";
-    setTimeout(() => { toast.style.display = "none"; }, 2000);
-  }
+  const mailBox = document.getElementById("mail");
 
   function setInbox(name) {
     emailBox.textContent = `${name}@tabiland.app`;
+    statusBox.textContent = "Waiting for emails…";
+    mailBox.style.display = "none";
+    mailBox.textContent = "";
     localStorage.setItem("inbox", name);
-    // Clear inbox UI when switching names
-    mailContainer.innerHTML = `<div id="status" class="empty-state">Waiting for incoming messages...</div>`;
   }
 
   function randomInbox() {
@@ -325,10 +303,17 @@
     setInbox(rand);
   }
 
+  function changeInbox() {
+    input.focus();
+    input.select();
+  }
+
   function copyEmail() {
-    if (!emailBox.textContent || emailBox.textContent === "...") return;
+    if (!emailBox.textContent) return;
     navigator.clipboard.writeText(emailBox.textContent);
-    showToast("Email copied to clipboard! ✔");
+    const oldStatus = statusBox.textContent;
+    statusBox.textContent = "Email copied to clipboard ✔";
+    setTimeout(() => { statusBox.textContent = oldStatus; }, 2000);
   }
 
   input.addEventListener("input", () => {
@@ -346,22 +331,22 @@
       const res = await fetch(`${API}/inbox/${inbox}?t=${Date.now()}`);
       const emails = await res.json();
 
-      if (!emails.length) return;
+      if (!emails || !emails.length) {
+        statusBox.textContent = "Waiting for emails…";
+        mailBox.style.display = "none";
+        return;
+      }
 
-      // Render emails as cards
-      mailContainer.innerHTML = emails.map(mail => `
-        <div class="email-card">
-          <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 4px;">From: ${mail.from}</div>
-          <div style="font-weight: 700; margin-bottom: 8px;">${mail.subject}</div>
-          <div style="font-size: 0.9rem; white-space: pre-wrap; color: #334155;">${mail.text || ""}</div>
-        </div>
-      `).join('');
-    } catch (e) {
-      console.error("Poll error", e);
+      const mail = emails[0];
+      statusBox.textContent = "📬 Email received";
+      mailBox.style.display = "block";
+      mailBox.textContent =
+        `From: ${mail.from}\nSubject: ${mail.subject}\n\n${mail.text || ""}`;
+    } catch {
+      statusBox.textContent = "Reconnecting…";
     }
   }
 
-  // Init
   const saved = localStorage.getItem("inbox");
   if (saved) {
     input.value = saved;
@@ -370,7 +355,7 @@
     randomInbox();
   }
 
-  setInterval(pollInbox, 5000);
+  setInterval(pollInbox, 3000);
 </script>
 
 </body>
